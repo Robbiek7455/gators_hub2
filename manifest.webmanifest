@@ -1,0 +1,16 @@
+{
+  "name": "Gators Hoops Hub",
+  "short_name": "GatorsHub",
+  "start_url": "./#/schedule",
+  "display": "standalone",
+  "background_color": "#0021A5",
+  "theme_color": "#0021A5",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Florida_Gators_gator_logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

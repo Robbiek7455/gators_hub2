@@ -1,0 +1,13 @@
+[
+  {"name":"Arizona","abbr":"ARIZ","logo":"https://upload.wikimedia.org/wikipedia/en/8/88/Arizona_Wildcats_logo.svg","color":"#AB0520"},
+  {"name":"North Florida","abbr":"UNF","logo":"https://upload.wikimedia.org/wikipedia/en/0/0f/North_Florida_Ospreys_logo.svg","color":"#0A2240"},
+  {"name":"Florida State","abbr":"FSU","logo":"https://upload.wikimedia.org/wikipedia/en/2/2e/Florida_State_Seminoles_logo.svg","color":"#782F40"},
+  {"name":"Miami (Fla.)","abbr":"MIA","logo":"https://upload.wikimedia.org/wikipedia/commons/2/2f/Miami_Hurricanes_logo.svg","color":"#F47321"},
+  {"name":"Merrimack","abbr":"MC","logo":"https://upload.wikimedia.org/wikipedia/en/5/55/Merrimack_Warriors_logo.svg","color":"#0F2147"},
+  {"name":"TCU","abbr":"TCU","logo":"https://upload.wikimedia.org/wikipedia/commons/4/4b/TCU_Horned_Frogs_logo.svg","color":"#4D1979"},
+  {"name":"Providence","abbr":"PROV","logo":"https://upload.wikimedia.org/wikipedia/en/8/87/Providence_Friars_logo.svg","color":"#231F20"},
+  {"name":"Wisconsin","abbr":"WISC","logo":"https://upload.wikimedia.org/wikipedia/commons/f/f5/Wisconsin_Badgers_logo.svg","color":"#C4012F"},
+  {"name":"Duke","abbr":"DUKE","logo":"https://upload.wikimedia.org/wikipedia/commons/e/e1/Duke_Blue_Devils_logo.svg","color":"#012169"},
+  {"name":"UConn","abbr":"UCONN","logo":"https://upload.wikimedia.org/wikipedia/en/7/7e/UConn_Huskies_logo.svg","color":"#0C2340"},
+  {"name":"George Washington","abbr":"GW","logo":"https://upload.wikimedia.org/wikipedia/en/3/33/George_Washington_Colonials_logo.svg","color":"#002855"}
+]

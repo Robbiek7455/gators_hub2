@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Florida Gators Men’s Basketball Hub</title>
+  <link rel="icon" href="https://a.espncdn.com/i/teamlogos/ncaa/500/57.png">
+  <!-- bump the version whenever you change CSS -->
+  <link rel="stylesheet" href="./style.css?v=31"/>
+  <link rel="manifest" href="./manifest.webmanifest"/>
+  <meta name="theme-color" content="#0021A5">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+
+  <meta name="color-scheme" content="light dark">
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <img class="masthead-logo" alt="Florida Gators" src="https://a.espncdn.com/i/teamlogos/ncaa/500/57.png"/>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#/schedule">Sports</a>
+        <a href="#/tickets">Tickets</a>
+        <a href="#/shop">Shop</a>
+        <a href="#/fans">Fans</a>
+        <a href="https://floridagators.com/athletics" target="_blank" rel="noopener">Athletics ↗</a>
+      </nav>
+      <div class="site-search">
+        <input id="siteSearch" class="input" type="search" placeholder="Search"/>
+        <button id="siteSearchBtn" class="btn">Search</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (now uses <img srcset> for razor-sharp photos) -->
+  <section class="hero">
+    <div id="heroImages" class="hero-images" aria-hidden="true"></div>
+    <div class="hero-overlay">
+      <div class="hero-top">
+        <div id="nextGame" class="countdown">Next game: —</div>
+        <div class="hero-arrows">
+          <button id="heroPrev" class="pill ghost" aria-label="Prev">‹</button>
+          <button id="heroNext" class="pill ghost" aria-label="Next">›</button>
+        </div>
+      </div>
+
+      <nav class="tabs" role="tablist" aria-label="Main sections">
+        <a class="tab" data-tab="schedule"   href="#/schedule">Schedule</a>
+        <a class="tab" data-tab="gamecenter" href="#/gamecenter">GameCenter</a>
+        <a class="tab" data-tab="live"       href="#/live">Live</a>
+        <a class="tab" data-tab="roster"     href="#/roster">Roster</a>
+        <a class="tab" data-tab="stats"      href="#/stats">Stats</a>
+        <a class="tab" data-tab="standings"  href="#/standings">Standings</a>
+        <a class="tab" data-tab="analytics"  href="#/analytics">Analytics</a>
+        <a class="tab" data-tab="media"      href="#/media">Media</a>
+        <a class="tab" data-tab="history"    href="#/history">History</a>
+        <a class="tab" data-tab="fans"       href="#/fans">Fans</a>
+        <a class="tab" data-tab="photos"     href="#/photos">Photos</a>
+        <a class="tab" data-tab="tickets"    href="#/tickets">Tickets</a>
+        <a class="tab" data-tab="shop"       href="#/shop">Shop</a>
+        <a class="tab" data-tab="about"      href="#/about">About</a>
+        <button id="themeToggle" class="tab" type="button" aria-label="Toggle theme">🌙</button>
+      </nav>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="schedule" class="panel active" role="tabpanel">
+      <div class="panel-header">
+        <h3>Schedule</h3>
+        <div class="actions">
+          <label class="select"><span>Season</span><select id="seasonSelect" class="input"></select></label>
+          <select id="schedFilter" class="input">
+            <option value="ALL">All</option><option value="Home">Home</option><option value="Away">Away</option><option value="Neutral">Neutral</option>
+          </select>
+          <button id="refreshSchedule" class="btn">Refresh</button>
+          <button id="exportScheduleCsv" class="btn ghost">Export CSV</button>
+          <button id="exportCalendar" class="btn ghost" title="Download iCal for the schedule (.ics)">Add to Calendar</button>
+        </div>
+      </div>
+      <div id="scheduleWrap" class="table-wrap"></div>
+      <p class="tiny muted">Click a row for venue, TV, calendar, and box links.</p>
+    </section>
+
+    <section id="roster" class="panel" role="tabpanel">
+      <div class="panel-header">
+        <h3>Roster (live)</h3>
+        <div class="actions">
+          <label class="select"><span>Season</span><select id="rosterSeason" class="input"></select></label>
+          <input id="rosterFilter" class="input" placeholder="Filter by name…"/>
+          <label class="select"><span>Only favorites</span><input id="favOnly" type="checkbox"/></label>
+          <button id="refreshRoster" class="btn">Refresh</button>
+        </div>
+      </div>
+      <div id="rosterGrid" class="grid"></div>
+      <div id="rosterEmpty" class="tiny muted" style="display:none">No roster data available right now.</div>
+    </section>
+
+    <section id="stats" class="panel" role="tabpanel">
+      <div class="panel-header">
+        <h3>Team & Player Stats (auto)</h3>
+        <div class="actions">
+          <label class="select"><span>Season</span><select id="statsSeason" class="input"></select></label>
+          <button id="refreshStats" class="btn">Refresh</button>
+          <button id="exportPlayersCsv" class="btn ghost">Export CSV</button>
+        </div>
+      </div>
+      <div id="teamStats" class="table-wrap"></div>
+      <div class="subhead"><input id="playerFilter" class="input" type="search" placeholder="Filter players..."/></div>
+      <div id="playerStats" class="table-wrap"></div>
+      <div class="subhead" style="margin-top:10px">
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <strong>Compare players:</strong>
+            <select id="cmpA" class="input"></select>
+            <select id="cmpB" class="input"></select>
+            <button id="drawCompare" class="btn ghost">Draw</button>
+          </div>
+          <div id="compareWrap" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="analytics" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>Game Analytics</h3><div class="actions"><button id="refreshAnalytics" class="btn">Refresh</button></div></div>
+      <div id="analyticsWrap" class="table-wrap"></div>
+      <div id="analyticsTrend" class="card" style="padding:0;margin-top:12px"></div>
+      <p class="tiny muted">ORtg = Points / Possessions × 100. Possessions ≈ FGA + 0.475×FTA − ORB + TO.</p>
+    </section>
+
+    <section id="props" class="panel" role="tabpanel">
+      <div class="panel-header">
+        <h3>Player Props (For Fun)</h3>
+        <div class="actions">
+          <input id="usernameInput" class="input" placeholder="Username (leaderboard)"/>
+          <button id="startBankroll" class="btn">Set $1,000 Bankroll</button>
+          <span id="bankroll" class="badge">$0</span>
+          <button id="resetBankroll" class="btn ghost">Reset</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:10px">
+        <div class="actions">
+          <label class="select"><span>Attach to game</span><select id="ticketGame" class="input"></select></label>
+          <button id="shareSlip" class="btn ghost" title="Copy a shareable URL with your slip">Share Slip</button>
+        </div>
+      </div>
+      <div id="propsTable" class="table-wrap"></div>
+      <div class="bet-slip">
+        <h4>Bet Slip</h4>
+        <div id="betList"></div>
+        <div class="bet-actions">
+          <input id="wagerInput" type="number" min="1" class="input" placeholder="Wager $"/>
+          <button id="placeBets" class="btn">Place Bets</button>
+          <button id="clearBets" class="btn ghost">Clear</button>
+        </div>
+      </div>
+      <h4 class="mt">Leaderboard</h4>
+      <div id="leaderboard" class="table-wrap"></div>
+      <h4 class="mt">Bet History</h4>
+      <div class="actions" style="margin-bottom:8px;">
+        <button id="exportHistory" class="btn ghost">Export History</button>
+        <label class="btn ghost" style="cursor:pointer">Import History
+          <input id="importHistory" type="file" accept="application/json" style="display:none">
+        </label>
+        <button id="clearHistory" class="btn ghost">Clear History</button>
+      </div>
+      <div id="historyWrap" class="table-wrap"></div>
+      <p class="disclaimer">For entertainment only. No real money. Lines come from per-game averages (rounded to .5).</p>
+    </section>
+
+    <section id="news" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>News</h3><div class="actions"><button id="refreshNews" class="btn">Refresh</button></div></div>
+      <div id="newsList" class="cards"></div>
+    </section>
+
+    <section id="photos" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>Photos</h3></div>
+
+      <div id="photoGrid" class="grid photos"></div>
+    </section>
+
+    <section id="about" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>About</h3></div>
+      <div class="card">
+        <p>Unofficial fan project. Live schedule, roster & stats from ESPN JSON; 2025 championship photos via WRUF. Not affiliated with UF.</p>
+      </div>
+    </section>
+
+    <section id="diag" class="panel" role="tabpanel" style="display:none"></section>
+    <section id="ap" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>AP Top 25</h3><div class="actions"><button id="refreshAP" class="btn">Refresh</button></div></div>
+      <div id="apWrap" class="table-wrap"></div>
+      <p class="tiny muted">Source: AP via ESPN.</p>
+    </section>
+
+    <section id="standings" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>SEC Standings</h3><div class="actions"><button id="refreshStandings" class="btn">Refresh</button></div></div>
+      <div id="standingsWrap" class="table-wrap"></div>
+      <p class="tiny muted">Source: Sports-Reference (offline fallback) or ESPN.</p>
+    </section>
+
+    <section id="live" class="panel" role="tabpanel">
+      <div class="panel-header">
+        <h3>Gameday Live</h3>
+        <div class="actions">
+          <button id="refreshLive" class="btn">Refresh Live</button>
+          <button id="notifyTip" class="btn ghost" title="Get a reminder at tipoff">Notify me at tipoff</button>
+        </div>
+      </div>
+      <div id="liveWrap" class="card scoreboard"></div>
+      <div id="winProb" class="card mt"></div>
+      <div id="liveLeaders" class="card mt"></div>
+      <div id="liveTeamStats" class="card mt"></div>
+      <div id="livePlays" class="card mt"></div>
+    </section>
+
+    <section id="history" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>History</h3></div>
+      <div class="card">
+        <ul>
+          <li><strong>National Champions:</strong> 2006, 2007</li>
+          <li><strong>Final Fours:</strong> 2000, 2006, 2007, 2014</li>
+          <li><strong>SEC Titles (Sel.):</strong> 2000, 2011, 2013, 2014</li>
+        </ul>
+        <p class="tiny muted">Learn more: <a class="boxlink" href="https://floridagators.com/sports/mens-basketball" target="_blank" rel="noopener">Official History ↗</a></p>
+      </div>
+    </section>
+
+    <section id="media" class="panel" role="tabpanel">
+
+      <div class="panel-header"><h3>Media</h3></div>
+      <div class="card">
+        <div class="actions" style="margin-bottom:8px">
+          <a class="btn" href="https://floridagators.com/sports/mens-basketball" target="_blank" rel="noopener">Official Site ↗</a>
+          <a class="btn ghost" href="https://twitter.com/GatorsMBK" target="_blank" rel="noopener">X: @GatorsMBK ↗</a>
+          <a class="btn ghost" href="https://www.instagram.com/gatorsmbk/" target="_blank" rel="noopener">Instagram ↗</a>
+          <a class="btn ghost" href="https://www.youtube.com/@FloridaGators" target="_blank" rel="noopener">YouTube ↗</a>
+        </div>
+        <div class="media-embed">
+          <iframe width="100%" height="360" src="https://www.youtube.com/embed?listType=search&list=Florida%20Gators%20Men%27s%20Basketball%20highlights" title="Highlights" frameborder="0" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="fans" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>Fans</h3></div>
+      <div class="card" id="fansPoll"></div>
+      <div class="card mt" id="pickemWrap"></div>
+    </section>
+
+    <section id="shop" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>Shop</h3></div>
+      <div class="card">
+        <p>Get the gear.</p>
+        <div class="actions">
+          <a class="btn" href="https://shop.floridagators.com/" target="_blank" rel="noopener">Official Gators Shop ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="gamecenter" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>GameCenter</h3></div>
+      <div id="gcNext" class="card"></div>
+      <div id="gcScout" class="card mt"></div>
+      <div id="gcTeam" class="card mt"></div>
+      <div id="gcWatch" class="card mt"></div>
+      <div id="gcDepth" class="card mt"></div>
+    </section>
+
+    <section id="tickets" class="panel" role="tabpanel">
+      <div class="panel-header"><h3>Tickets</h3></div>
+      <div class="card">
+        <p>Official Florida Gators Men's Basketball tickets.</p>
+        <div class="actions">
+          <a class="btn" href="https://floridagators.com/sports/2020/6/17/tickets.aspx" target="_blank" rel="noopener">Buy Tickets ↗</a>
+          <a class="btn ghost" href="https://floridagators.com/sports/mens-basketball/schedule/2025-26" target="_blank" rel="noopener">Official Schedule ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">Florida Gators Basketball</div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="https://floridagators.com/" target="_blank" rel="noopener">Official Site ↗</a>
+        <a href="https://shop.floridagators.com/" target="_blank" rel="noopener">Shop ↗</a>
+        <a href="https://floridagators.com/sports/2020/6/17/tickets.aspx" target="_blank" rel="noopener">Tickets ↗</a>
+      </nav>
+    </div>
+  </footer>
+
+
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- bump ?v to defeat cache after each edit -->
+  <div id="scoutModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-bg"></div>
+    <div class="modal-card">
+      <div id="scoutContent"></div>
+    </div>
+  </div>
+
+  <script src="./app.js?v=31" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" crossorigin></script>
+
+</body>
+
+</html>

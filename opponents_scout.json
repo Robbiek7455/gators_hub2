@@ -1,0 +1,15 @@
+{
+  "Arizona": {
+    "style": "Up-tempo, heavy pick-and-roll, early drag screens.",
+    "players": [
+      {"name":"Caleb Love","note":"High-usage guard, deep range, streaky but explosive."},
+      {"name":"Oumar Ballo","note":"Physical interior, elite rebounder."}
+    ],
+    "keys": ["Protect defensive glass", "Limit live-ball turnovers", "Tag rollers early"]
+  },
+  "North Florida": {
+    "style":"Spread 5-out looks, quick-trigger threes.",
+    "players":[{"name":"Jarius Hicklen","note":"Volume shooter; runs off pindowns."}],
+    "keys":["Top-lock shooters","No-help on strong-side corners"]
+  }
+}

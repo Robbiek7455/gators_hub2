@@ -1,0 +1,8 @@
+[
+  {"name":"AJ Brown","gp":2,"mpg":28.5,"ppg":18.0,"rpg":4.0,"apg":2.0,"spg":1.0,"bpg":0.2,"tpg":1.7,"fgPct":0.47,"threePct":0.39,"ftPct":0.82},
+  {"name":"Alex Condon","gp":2,"mpg":26.0,"ppg":14.5,"rpg":8.0,"apg":1.6,"spg":0.7,"bpg":1.2,"tpg":1.8,"fgPct":0.58,"threePct":0.33,"ftPct":0.71},
+  {"name":"Xaivian Lee","gp":2,"mpg":29.0,"ppg":13.0,"rpg":3.0,"apg":4.5,"spg":1.2,"bpg":0.1,"tpg":2.3,"fgPct":0.46,"threePct":0.36,"ftPct":0.86},
+  {"name":"Micah Handlogten","gp":2,"mpg":23.0,"ppg":11.0,"rpg":9.0,"apg":1.1,"spg":0.4,"bpg":1.4,"tpg":1.6,"fgPct":0.60,"threePct":0.00,"ftPct":0.64},
+  {"name":"Thomas Haugh","gp":2,"mpg":22.5,"ppg":9.0,"rpg":6.0,"apg":2.0,"spg":0.9,"bpg":0.7,"tpg":1.5,"fgPct":0.52,"threePct":0.29,"ftPct":0.70},
+  {"name":"Boogie Fland","gp":2,"mpg":20.0,"ppg":8.0,"rpg":2.5,"apg":2.0,"spg":0.8,"bpg":0.1,"tpg":1.4,"fgPct":0.44,"threePct":0.34,"ftPct":0.78}
+]
