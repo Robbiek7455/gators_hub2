@@ -180,22 +180,29 @@
 
   /* ---------- Router ---------- */
   function showTab(tab){ $$(".tab").forEach(a=>a.classList.toggle("active", a.dataset.tab===tab)); $$(".panel").forEach(p=>p.classList.toggle("active", p.id===tab)); }
-  function route(){ const m=location.hash.match(/^#\/([a-z]+)/i); showTab(m?m[1]:"schedule"); }
+  function route(){
+    const m = location.hash.match(/^#\/([a-z]+)/i);
+    showTab(m ? m[1] : "schedule");
+    try{
+      const cont = document.querySelector('main.container');
+      if(cont) cont.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }catch(e){}
+  }
   window.addEventListener("hashchange", route);
 
   /* ---------- HD Banner via <img srcset> ---------- */
   const HERO_HD = [
     {
-      src: "https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-26-scaled-e1744107148886.jpg",
-      srcset: "https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-26-1536x1025.jpg 1536w, https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-26-2048x1367.jpg 2048w, https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-26-scaled-e1744107148886.jpg 2560w"
+      src: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=2400&q=60",
+      srcset: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1536&q=60 1536w, https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=2048&q=60 2048w, https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=2560&q=60 2560w"
     },
     {
-      src: "https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-11-scaled.jpg",
-      srcset: "https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-11-1536x1025.jpg 1536w, https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-11-2048x1367.jpg 2048w, https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-11-scaled.jpg 2560w"
+      src: "https://images.unsplash.com/photo-1515523110800-9415d13b84dc?auto=format&fit=crop&w=2400&q=60",
+      srcset: "https://images.unsplash.com/photo-1515523110800-9415d13b84dc?auto=format&fit=crop&w=1536&q=60 1536w, https://images.unsplash.com/photo-1515523110800-9415d13b84dc?auto=format&fit=crop&w=2048&q=60 2048w, https://images.unsplash.com/photo-1515523110800-9415d13b84dc?auto=format&fit=crop&w=2560&q=60 2560w"
     },
     {
-      src: "https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-21-scaled.jpg",
-      srcset: "https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-21-1536x1025.jpg 1536w, https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-21-2048x1367.jpg 2048w, https://www.wruf.com/wp-content/uploads/2025/04/040725-UF-Basketball-Championship-ML-21-scaled.jpg 2560w"
+      src: "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=2400&q=60",
+      srcset: "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1536&q=60 1536w, https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=2048&q=60 2048w, https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=2560&q=60 2560w"
     }
   ];
   let heroIdx=0;
@@ -519,7 +526,7 @@
     mount.innerHTML = rows.map(p=>`
       <div class="card player" data-player="${esc(p.name)}">
         <div style="display:flex;gap:12px;align-items:center;">
-          <img loading="lazy" src="${p.headshot}" alt="${esc(p.name)} headshot" width="64" height="64" style="border-radius:12px;object-fit:cover"/>
+          <img loading="lazy" src="${p.headshot}" alt="${esc(p.name)} headshot" width="64" height="64" style="border-radius:12px;object-fit:cover" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?background=0021A5&color=fff&name=${encodeURIComponent(p.name)}'"/>
           <div><div><strong>${esc(p.name)}</strong> <span class="tiny muted">#${esc(p.number||"")} ${esc(p.pos||"")}</span></div><div class="meta">${esc(p.hometown||"")}</div></div>
           <button class="btn ghost" style="margin-left:auto" data-fav="${esc(p.name)}">${favs.includes(p.name)?"⭐":"☆"}</button>
         </div>
@@ -537,7 +544,7 @@
     const q=$("#playerFilter")?.value.toLowerCase()||""; let rows=STATE.stats.players.slice(); if(q) rows=rows.filter(p=>p.name.toLowerCase().includes(q));
     rows.sort((a,b)=>(b.ppg||0)-(a.ppg||0));
     $("#playerStats").innerHTML = `<table id="playersTable"><thead><tr><th>Player</th><th>GP</th><th>MPG</th><th>PPG</th><th>RPG</th><th>APG</th><th>SPG</th><th>BPG</th><th>TOV</th><th>FG%</th><th>3P%</th><th>FT%</th></tr></thead><tbody>
-      ${rows.map(p=>`<tr class="plink" data-player="${esc(p.name)}"><td><div style="display:flex;align-items:center;gap:8px">${p.headshot?`<img src="${p.headshot}" width="20" height="20" style="border-radius:50%">`:""}<strong>${esc(p.name)}</strong></div></td><td>${p.gp??"—"}</td><td>${fmt1(p.mpg)}</td><td class="stat">${fmt1(p.ppg)}</td><td>${fmt1(p.rpg)}</td><td>${fmt1(p.apg)}</td><td>${fmt1(p.spg)}</td><td>${fmt1(p.bpg)}</td><td>${fmt1(p.tpg)}</td><td>${pct3(p.fgPct)}</td><td>${pct3(p.threePct)}</td><td>${pct3(p.ftPct)}</td></tr>`).join("")}
+      ${rows.map(p=>`<tr class="plink" data-player="${esc(p.name)}"><td><div style="display:flex;align-items:center;gap:8px">${p.headshot?`<img src="${p.headshot}" width="20" height="20" style="border-radius:50%" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?background=0021A5&color=fff&name=${encodeURIComponent(p.name)}'">`:""}<strong>${esc(p.name)}</strong></div></td><td>${p.gp??"—"}</td><td>${fmt1(p.mpg)}</td><td class="stat">${fmt1(p.ppg)}</td><td>${fmt1(p.rpg)}</td><td>${fmt1(p.apg)}</td><td>${fmt1(p.spg)}</td><td>${fmt1(p.bpg)}</td><td>${fmt1(p.tpg)}</td><td>${pct3(p.fgPct)}</td><td>${pct3(p.threePct)}</td><td>${pct3(p.ftPct)}</td></tr>`).join("")}
     </tbody></table>`;
     $$("#playersTable .plink").forEach(tr=>tr.addEventListener("click", ()=>{ const p=STATE.stats.players.find(x=>x.name===tr.dataset.player); openPlayerModal(p); }));
   }
